@@ -21,7 +21,7 @@ export default function SigninPage() {
   const handleSignin = async () => {
     try {
       await signInWithEmailAndPassword(auth, signinForm.email, signinForm.password);
-      push("/home");
+      push("/reports");
     } catch (error) {
       toast.error("Problema al intentar iniciar sesión, por favor verifique los datos e intente nuevamente.");
     }

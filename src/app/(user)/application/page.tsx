@@ -13,13 +13,13 @@ export default function ApplicationPage() {
       <Row className="text-center mb-5">
         <Col>
           <div className="ratio ratio-16x9">
-            <iframe src="https://www.youtube.com/embed/65CIdZ5JqNw?si=unW9iubbJQ0Gv802" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+            <iframe src="https://www.youtube.com/embed/njUsZYmI_is?si=pgtR_7_3G2SCkGjJ" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
           </div>
         </Col>
       </Row>
       <Row className="text-center">
         <Col>
-          <a href="https://play.google.com/store/apps/details?id=com.jdpm.elmonitor">
+          <a href="https://play.google.com/store/apps/details?id=com.jdtech.tachira_fuel">
             <img src={googlePlayImage.src} alt="" className="img-fluid" width="500rem" />
           </a>
         </Col>
