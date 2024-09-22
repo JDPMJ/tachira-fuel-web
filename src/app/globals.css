@@ -1,42 +1,19 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.file-upload {
+  border: 2px dashed #000; /* Borde discontinuo negro */
+  border-radius: 20px; /* Esquinas redondeadas */
+  padding: 20px;
+  text-align: center;
+  display: inline-block;
+  width: calc(100% - 40px); /* Ancho completo menos el padding */
+  cursor: pointer;
+  color: #000; /* Color del texto */
+  background-color: #fff; /* Fondo blanco */
 }
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+.file-upload:hover {
+  background-color: #f0f0f0; /* Fondo gris claro al pasar el ratón */
 }
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.file-upload input[type="file"] {
+  display: none; /* Ocultar el input real */
 }
