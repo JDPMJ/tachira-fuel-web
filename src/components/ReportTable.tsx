@@ -1,6 +1,6 @@
 "use client";
 import { useReportGroup } from "@/contexts/ReportGroupContext";
-import { useReport } from "@/contexts/ReportsContext";
+import { useReport } from "@/contexts/ReportContext";
 import { useEffect, useState } from "react";
 import { Card, Carousel, Col, Form, Row } from "react-bootstrap";
 import toast from "react-hot-toast";
@@ -10,7 +10,7 @@ import { storage } from "@/config/firebase";
 
 export default function ReportTable() {
   const {reportGroups, loadReportGroups, deleteReportGroup} = useReportGroup();
-  const {reports, loadReports, deleteReport} = useReport();
+  const {reports, loadReports, loadReportsId, deleteReport} = useReport();
 
   const [reportGroupsWithReports, setReportGroupsWithReports] = useState<ReportGroup[]>([]);
 
@@ -29,9 +29,9 @@ export default function ReportTable() {
 
   const handleDelete = async (id: string) => {
     try {
-      await deleteReportGroup(id);
-      await loadReports("id_report_groups", id);
-      reports.map(async report => {
+      deleteReportGroup(id);
+      const reportsId = await loadReportsId(id);
+      reportsId.map(async report => {
         await deleteReport(report.id_report!);
         report.image.map(async image => {
           const storageRef = ref(storage, image);

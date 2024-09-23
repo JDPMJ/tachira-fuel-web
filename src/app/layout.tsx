@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Bootstrap from "@/components/Bootstrap"; 
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ReportGroupProvider } from "@/contexts/ReportGroupContext";
-import { ReportProvider } from "@/contexts/ReportsContext";
+import { ReportProvider } from "@/contexts/ReportContext";
 
 export const metadata: Metadata = {
   title: "Combustible Táchira",

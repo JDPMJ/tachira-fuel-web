@@ -1,6 +1,6 @@
 "use client";
 import { useReportGroup } from "@/contexts/ReportGroupContext";
-import { useReport } from "@/contexts/ReportsContext";
+import { useReport } from "@/contexts/ReportContext";
 import { useEffect } from "react";
 import { Card, Carousel, Col, Row } from "react-bootstrap";
 

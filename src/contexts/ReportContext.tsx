@@ -6,13 +6,15 @@ import { collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, setDoc, wh
 export const ReportContext = createContext<{
   reports: FuelReport[];
   addReport: (report: FuelReport) => Promise<void>;
-  loadReports: (query: string, id_report_group?: string) => Promise<void>;
+  loadReports: (query: string) => Promise<void>;
+  loadReportsId: (id_report_group: string) => Promise<FuelReport[]>;
   editReport: (report: FuelReport) => Promise<void>;
   deleteReport: (id: string) => Promise<void>;
 }>({
   reports: [],
   addReport: async (report: FuelReport) => {},
-  loadReports: async (query: string, id_report_group?: string) => {},
+  loadReports: async (query: string) => {},
+  loadReportsId: async (id_report_group: string) => [],
   editReport: async (report: FuelReport) => {},
   deleteReport: async (id: string) => {}
 });
@@ -33,16 +35,12 @@ export const ReportProvider = ({ children }: { children: React.ReactNode }) => {
     loadReports("");
   }
 
-  async function loadReports(querySearch: string, id_report_group?: string) {
+  async function loadReports(querySearch: string) {
     if (querySearch == "") {
       const res = await getDocs(query(collection(db, "reports"), orderBy("date", "desc")));
       const data = res.docs.map((report) => Object({id_report: report.id, ...report.data()}));
       setReports(data);
       console.log("Reportes: ", data);
-    } else if (querySearch == "id_report_groups") {
-      const res = await getDocs(query(collection(db, "reports"), orderBy("date", "desc"), where("id_report_group", "==", id_report_group)));
-      const data = res.docs.map((report) => Object({id_report: report.id, ...report.data()}));
-      setReports(data);
     } else {
       const res = await getDocs(query(collection(db, "reports"), orderBy("date", "desc")));
       const data = res.docs.map((report) => Object({id_report: report.id, ...report.data()}));
@@ -50,6 +48,12 @@ export const ReportProvider = ({ children }: { children: React.ReactNode }) => {
       const filteredData = data.filter(report => exp.test(report.date));
       setReports(filteredData);
     }
+  }
+
+  async function loadReportsId(id_report_group: string) {
+    const res = await getDocs(query(collection(db, "reports"), orderBy("date", "desc"), where("id_report_group", "==", id_report_group)));
+    const data = res.docs.map((report) => Object({id_report: report.id, ...report.data()}));
+    return data;
   }
 
   async function editReport(report: FuelReport) {
@@ -70,7 +74,7 @@ export const ReportProvider = ({ children }: { children: React.ReactNode }) => {
     loadReports("");
   }
 
-  return <ReportContext.Provider value={{ reports, addReport, loadReports, editReport, deleteReport }}>
+  return <ReportContext.Provider value={{ reports, addReport, loadReports, loadReportsId, editReport, deleteReport }}>
     {children}
   </ReportContext.Provider>
 };

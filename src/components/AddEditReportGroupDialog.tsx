@@ -1,6 +1,6 @@
 "use client";
 import { useReportGroup } from "@/contexts/ReportGroupContext";
-import { useReport } from "@/contexts/ReportsContext";
+import { useReport } from "@/contexts/ReportContext";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Button, Card, Carousel, Col, Form, InputGroup, Modal, Row } from "react-bootstrap";
 import ImageUploader from "./ImageUploader";
@@ -89,22 +89,22 @@ export default function AddEditReportGroupDialog({ variant, reportGroup }: { var
   const handleAdd = async () => {
     try {
       const dieselUrls = await Promise.all(
-        dieselFiles.map(async (dieselFile) => {
-          const storageRef = ref(storage, `Post Images/${getCurrentDate("1")}`);
+        dieselFiles.map(async (dieselFile, index) => {
+          const storageRef = ref(storage, `Post Images/${getCurrentDate("1")}-${index}`);
           await uploadBytes(storageRef, dieselFile);
           return await getDownloadURL(storageRef);
         })
       );
       const gasolineUrls = await Promise.all(
-        gasolineFiles.map(async (gasolineFile) => {
-          const storageRef = ref(storage, `Post Images/${getCurrentDate("1")}`);
+        gasolineFiles.map(async (gasolineFile, index) => {
+          const storageRef = ref(storage, `Post Images/${getCurrentDate("1")}-${index}`);
           await uploadBytes(storageRef, gasolineFile);
           return await getDownloadURL(storageRef);
         })
       );
       const informationUrls = informationFiles.length > 0 ? await Promise.all(
-        informationFiles.map(async (informationFile) => {
-          const storageRef = ref(storage, `Post Images/${getCurrentDate("1")}`);
+        informationFiles.map(async (informationFile, index) => {
+          const storageRef = ref(storage, `Post Images/${getCurrentDate("1")}-${index}`);
           await uploadBytes(storageRef, informationFile);
           return await getDownloadURL(storageRef);
         })
@@ -134,6 +134,9 @@ export default function AddEditReportGroupDialog({ variant, reportGroup }: { var
         name: "Información",
         image: informationUrls
       });
+      setDieselFiles([]);
+      setGasolineFiles([]);
+      setInformationFiles([]);
       toast.success("Reportes agregados exitosamente");
       handleCloseReportGroupModal();
     } catch (error) {
